@@ -1,0 +1,43 @@
+.log-list {
+    background: #87f554;
+  }
+  
+  .register {
+    align-items: center;
+    background: rgb(203, 238, 236);
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 9px 15px;
+  }
+  .app {
+    text-align: center;
+    background: #20eea9;
+    height: 100vh;
+    padding: 30px;
+  }
+  label {
+    float: left;
+    font-weight: bolder;
+  }
+  
+  span {
+      display: block;
+      overflow: hidden;
+      padding: 0px 10px 0px 10px;
+  }
+  p{
+    font-weight: bolder;
+    color: red;
+  }
+  .required {
+    float: left;
+    font-weight: bolder;
+    font-style: italic;
+    font-size:  large;
+    color: red;
+  }
+  
