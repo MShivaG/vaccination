@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "./components/styles.css";
-import RegistrationForm from './components/showRegistrationForm';
+import RegistrationForm from './components/showRegistrationFormV1';
 
 export default class VaccineRegistration extends Component {
     constructor(props) {

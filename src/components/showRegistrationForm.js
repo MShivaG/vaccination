@@ -18,10 +18,10 @@ class RegistrationForm extends Component {
     }
     }
     validateString(string) {
+        const errorElement = document.getElementById("validate-string");
         if(/^[a-zA-Z]*$/.test(string) === false)
         {
-            const element = document.getElementById("validate-string");
-            element.innerHTML = `<div class="alert alert-danger" role="alert">
+            errorElement.innerHTML = `<div class="alert alert-danger" role="alert">
             Name must contain only alphabets!
           </div>`
           this.setState({showSubmitFlag: true});
@@ -34,18 +34,17 @@ class RegistrationForm extends Component {
             }
             else
             {
-                const element = document.getElementById("validate-string");
-                element.innerHTML = "";
+                errorElement.innerHTML = "";
                 this.setState({showSubmitFlag: false});
                 return true;
             }
         }
     }
     validatePhone(string){
-        const element = document.getElementById("validate-number");
+        const errorElement = document.getElementById("validate-number");
         if(/^[0-9]*$/.test(string) === false)
         {
-            element.innerHTML = `<div class="alert alert-danger" role="alert">
+            errorElement.innerHTML = `<div class="alert alert-danger" role="alert">
             Phone Number must contain only numbers!
           </div>`
           this.setState({showSubmitFlag: true});
@@ -54,7 +53,7 @@ class RegistrationForm extends Component {
             const arr = [...string];
             if(/^[8,9,7]*$/.test(arr[0]) === false)
             {
-                element.innerHTML = `<div class="alert alert-danger" role="alert">
+                errorElement.innerHTML = `<div class="alert alert-danger" role="alert">
                 Phone Number must start with 7 or 8 or 9!
                 </div>`
                 this.setState({showSubmitFlag: true});
@@ -62,14 +61,14 @@ class RegistrationForm extends Component {
             else{                
                 if(arr.length !== 10)
                 {
-                    element.innerHTML = `<div class="alert alert-danger" role="alert">
-                    Phone Number must contain 10 numbers!
+                    errorElement.innerHTML = `<div class="alert alert-danger" role="alert">
+                    Phone Number must contain 10 numbers only!
                     </div>`
                     this.setState({showSubmitFlag: true});
                 }
                 else
                 {
-                    element.innerHTML = "";
+                    errorElement.innerHTML = "";
                     this.setState({showSubmitFlag: false});
                 }
             }
@@ -79,6 +78,11 @@ class RegistrationForm extends Component {
 
     showForm() {
         if (this.state.showFormFlag) {
+            const today = new Date();
+            const max_date = `${today.getFullYear()-18}/${today.getMonth()}/${today.getDate()}`;
+            const min_date = `${today.getFullYear()-100}/${today.getMonth()}/${today.getDate()}`;
+            console.log(max_date);
+            console.log(min_date);
             return (
                 <div className="panel panel-danger">
                     <div className="panel-body">
@@ -93,6 +97,12 @@ class RegistrationForm extends Component {
                         <label htmlFor="phone">Phone</label>
                         <div className="required">*</div>
                         <input required ref={this.phoneRef} onChange={e => this.validatePhone(e.target.value)} type="text" className="form-control" id="phone" placeholder="Enter your Phone Number"/>
+                        <div id="validate-number"></div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="dateofbirth">Phone</label>
+                        <div className="required">*</div>
+                        <input required max={max_date} min={min_date} type="date" className="form-control" id="dateofbirth" placeholder="Enter your Phone Number"/>
                         <div id="validate-number"></div>
                     </div>
                     <button onSubmit={this.handleSubmit.bind(this)} className="btn btn-primary">Submit</button>
