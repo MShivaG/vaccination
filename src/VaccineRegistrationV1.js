@@ -29,10 +29,19 @@ export default class VaccineRegistration extends Component {
     };
     display() {
         return(
-            this.state.vaccineregister.map((log, index)=> (
-                <Register key={index} index={index} log={log} vaccinatePerson={this.vaccinatePerson} removePerson={this.removePerson}/>
-            )
-            )
+            <table id="register">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Aadhar Number</th>
+                    <th>DOB</th>
+                </tr>
+                {this.state.vaccineregister.map((log, index)=> (
+                    <Register key={index} index={index} log={log} vaccinatePerson={this.vaccinatePerson} removePerson={this.removePerson}/>
+                )
+                )}
+            </table>
         );
     }
     render(){
@@ -52,19 +61,12 @@ export default class VaccineRegistration extends Component {
 
 function Register({log, index, vaccinatePerson, removePerson}) {
     return (
-        <div className="register">
-            {log.fname} 
-            {log.time? ` Vaccinated on: ${log.time}`: ""}
-            Phone:{log.phone}
-            <div>
-                {log.time ? "" :
-                <button className="btn btn-primary" onClick={()=>vaccinatePerson(index)}>
-                    Vaccinate
-                </button>}
-                <button className="btn btn-danger" onClick={()=>removePerson(index)}>
-                    x
-                </button>
-            </div>
-        </div>
+        <tr>
+            <td>{log.fname}</td>
+            <td>{log.phone}</td>
+            <td>{log.gender}</td>
+            <td>{log.aadhar}</td>
+            <td>{log.date}</td>
+        </tr>
     );
 }

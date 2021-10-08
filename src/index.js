@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './VaccineRegistration';
+import App from './VaccineRegistrationV1';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
