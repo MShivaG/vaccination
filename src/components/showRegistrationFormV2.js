@@ -4,6 +4,7 @@ import {Select} from './components';
 
 export default function RegistrationForm(props) {
     const {register, handleSubmit, setError, formState: {errors}} = useForm();
+    const vaccineregister = props.vaccineregister;
     const onSubmit = data => {
         if(isNaN(data.date.getFullYear()))
         {
@@ -13,7 +14,6 @@ export default function RegistrationForm(props) {
             })
         }
         else{
-            console.log(data);
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
             data.date = data.date.toLocaleString([], options);
             props.addNewPerson(data);
@@ -66,7 +66,8 @@ export default function RegistrationForm(props) {
                     pattern: {
                         value: /^[6789]/,
                         message: "Phone Number must start with 6 or 7 or 8 or 9"
-                    }
+                    },
+                    validate: value => checkPhone(value, vaccineregister) || "This phone number is already registered"
                 }
             )}
             />
@@ -90,7 +91,8 @@ export default function RegistrationForm(props) {
                         value: /\d{12}/,
                         message: "Aadhar number must contain only numbers"
                     },
-                    validate: value => (/^0/.test(value)===false) || "Aadhar Number cannot start with 0"
+                    validate: value => (/^0/.test(value)===false) || "Aadhar Number cannot start with 0",
+                    validate: value => checkAadhar(value, vaccineregister) || "This Aadhar number is already registered"
                 }
             )}
             />
@@ -116,4 +118,18 @@ function ageValidation(value) {
     if(value.getFullYear() > now.getFullYear()-18)
     return false;
     return true;
+}
+function checkPhone(value, register) {
+    let flag = true;
+    register.map((log)=>{
+        if(log.phone === value){flag = false;}
+    })
+    return flag;
+}
+function checkAadhar(value, register) {
+    let flag = true;
+    register.map((log)=>{
+        if(log.aadhar===value){flag=false}
+    })
+    return flag;
 }

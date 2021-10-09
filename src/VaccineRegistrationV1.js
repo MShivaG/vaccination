@@ -1,26 +1,22 @@
 import React, {Component} from 'react';
 import "./components/stylesV1.css";
 import RegistrationForm from './components/showRegistrationFormV2';
+import ReactTimeout from 'react-timeout';
 
-export default class VaccineRegistration extends Component {
+class VaccineRegistration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            vaccineregister: []
+            vaccineregister: [],
+            showForm: false,
+            count: 0
         }
-        this.vaccinatePerson = this.vaccinatePerson.bind(this);
         this.addNewPerson = this.addNewPerson.bind(this);
         this.removePerson = this.removePerson.bind(this);
     }
-    vaccinatePerson(index) {
-        const newvaccineregister =this.state.vaccineregister;
-        newvaccineregister[index].time = Date();
-        console.log(newvaccineregister[index]);
-        this.setState({vaccineregister:newvaccineregister});
-    };
     addNewPerson(data){
         const newvaccineregister = [...this.state.vaccineregister, data];
-        this.setState({vaccineregister:newvaccineregister});
+        this.setState({vaccineregister:newvaccineregister, showForm:false});
     };
     removePerson(index) {
         const newvaccineregister = this.state.vaccineregister;
@@ -29,19 +25,26 @@ export default class VaccineRegistration extends Component {
     };
     display() {
         return(
-            <table id="register">
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
-                    <th>Aadhar Number</th>
-                    <th>DOB</th>
-                </tr>
-                {this.state.vaccineregister.map((log, index)=> (
-                    <Register key={index} index={index} log={log} vaccinatePerson={this.vaccinatePerson} removePerson={this.removePerson}/>
-                )
-                )}
-            </table>
+            <>
+            <button type="button" onClick={()=>this.setState({showForm:true})}>Register</button> 
+                <table id="register">
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Aadhar Number</th>
+                        <th>DOB</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    {this.state.vaccineregister.map((log, index)=> (
+                        <Register key={index} index={index} log={log} vaccinatePerson={this.vaccinatePerson} removePerson={this.removePerson}/>
+                    )
+                    )}
+                </table>
+            </>
         );
     }
     render(){
@@ -49,9 +52,9 @@ export default class VaccineRegistration extends Component {
             <div className="container-fluid">
                 <div className="app">
                     <h1>Vaccine Registration App</h1>
-                    <RegistrationForm addNewPerson={this.addNewPerson}/>
+                    {this.state.showForm ? <RegistrationForm vaccineregister={this.state.vaccineregister} addNewPerson={this.addNewPerson}/> : ''}
                     <div className="log-list">
-                        {this.display()}
+                        {this.state.showForm ? '' : this.display()}
                     </div>
                 </div>
             </div>
@@ -59,14 +62,19 @@ export default class VaccineRegistration extends Component {
     }
 }
 
-function Register({log, index, vaccinatePerson, removePerson}) {
+function Register({log, index, removePerson}) {
     return (
-        <tr>
+        <tbody>
+            <tr>
+            <td>{index+1}</td>
             <td>{log.fname}</td>
             <td>{log.phone}</td>
             <td>{log.gender}</td>
             <td>{log.aadhar}</td>
             <td>{log.date}</td>
-        </tr>
+            <td><button onClick={removePerson} type="button">Remove</button></td>
+            </tr>
+        </tbody>
     );
 }
+export default ReactTimeout(VaccineRegistration)
