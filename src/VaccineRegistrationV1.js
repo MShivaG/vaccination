@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
 import "./components/stylesV1.css";
 import RegistrationForm from './components/showRegistrationFormV2';
-import ReactTimeout from 'react-timeout';
 
 class VaccineRegistration extends Component {
     constructor(props) {
         super(props);
         this.state = {
             vaccineregister: [],
-            showForm: false,
+            showForm: true,
             count: 0
         }
         this.addNewPerson = this.addNewPerson.bind(this);
         this.removePerson = this.removePerson.bind(this);
     }
     addNewPerson(data){
+        if(window.confirm("Do you want to continue?")){
         const newvaccineregister = [...this.state.vaccineregister, data];
-        this.setState({vaccineregister:newvaccineregister, showForm:false});
+        this.setState({vaccineregister:newvaccineregister, showForm:false});}
     };
     removePerson(index) {
         const newvaccineregister = this.state.vaccineregister;
@@ -51,7 +51,7 @@ class VaccineRegistration extends Component {
         return(
             <div className="container-fluid">
                 <div className="app">
-                    <h1>Vaccine Registration App</h1>
+                    <h1 style={{textAlign: 'center', fontWeight: 'bolder'}}>Vaccine Registration App</h1><hr/>
                     {this.state.showForm ? <RegistrationForm vaccineregister={this.state.vaccineregister} addNewPerson={this.addNewPerson}/> : ''}
                     <div className="log-list">
                         {this.state.showForm ? '' : this.display()}
@@ -77,4 +77,4 @@ function Register({log, index, removePerson}) {
         </tbody>
     );
 }
-export default ReactTimeout(VaccineRegistration)
+export default VaccineRegistration;

@@ -22,9 +22,14 @@ export default function RegistrationForm(props) {
 
     return (
         <>
+        <div className="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png" className="img-fluid" alt="Sample image"/>
+        </div>
+        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <p>All the fields marked with * is required</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <label className="label" htmlFor="fname">First Name *</label>
+            <label className="label required" htmlFor="fname">First Name</label>
             <input type="text" placeholder="Enter your First Name" {...register(
                     "fname", 
                     {
@@ -46,7 +51,7 @@ export default function RegistrationForm(props) {
                 )}
             />
             {errors.fname && <p>{errors.fname.message}</p>}
-            <label htmlFor="phone" className="label">Phone *</label>
+            <label htmlFor="phone" className="label required">Phone</label>
             <input type="text" placeholder="Enter your phone number" {...register(
                 "phone",
                 {
@@ -72,9 +77,9 @@ export default function RegistrationForm(props) {
             )}
             />
             {errors.phone && <p>{errors.phone.message}</p>}
-            <label htmlFor="gender" className="label">Gender *</label>
+            <label htmlFor="gender" className="label required">Gender</label>
             <Select register={register} name="gender" options={["Male", "Female", "Other"]}/>
-            <label className="label" htmlFor="aadhar">Aadhar Number</label>
+            <label className="label required" htmlFor="aadhar">Aadhar Number</label>
             <input type="text" placeholder="Enter your Aadhar Number" {...register(
                 "aadhar",
                 {
@@ -97,7 +102,7 @@ export default function RegistrationForm(props) {
             )}
             />
             {errors.aadhar && <p>{errors.aadhar.message}</p>}
-            <label className="label" htmlFor="date">Date of Bith</label>
+            <label className="label required" htmlFor="date">Date of Bith</label>
             <input type="date" {...register(
                 "date",
                 {
@@ -109,7 +114,7 @@ export default function RegistrationForm(props) {
             />
             {errors.date && <p>{errors.date.message}</p>}
             <input type="submit" value="Submit"/>
-        </form>
+        </form></div></div>
         </>
     )
 }

@@ -122,11 +122,11 @@ body {
     border-radius: 4px;
     box-sizing: border-box;
   }
-  .required {
-    float:inherit;
+  .required:after {
     font-weight: bolder;
     font-style: italic;
     font-size:  large;
+    content:" *";
     color: red;
   }
   #register {
