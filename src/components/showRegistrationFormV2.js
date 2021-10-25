@@ -108,7 +108,7 @@ export default function RegistrationForm(props) {
                 {
                     required: "Date of Birth is required",
                     valueAsDate: true,
-                    validate: value => ageValidation(value) || "You are not eligible to vaccinate"
+                    validate: value => ageValidation(value) || "You are not eligible to vaccinate. Age should be greater than 18."
                 }
             )}
             />
